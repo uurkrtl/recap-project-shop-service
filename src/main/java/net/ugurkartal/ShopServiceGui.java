@@ -47,17 +47,17 @@ public class ShopServiceGui {
     public static void showMenu() throws InterruptedException, IOException {
         System.out.println(
                 "\n**Product Management**\n" +
-                        "\t11: New product\n" +
+                        "\u001B[32m" + "\t11: New product\n" +
                         "\t12: Remove product\n" +
                         "\t13: Products list\n" +
                         "\t14: Product by Id\n" +
-                        "**Order Management**\n" +
-                        "\t21: New order\n" +
+                "\u001B[0m" + "**Order Management**\n" +
+                        "\u001B[32m" + "\t21: New order\n" +
                         "\t22: Update order quantity\n" +
                         "\t23: Cancel order\n" +
                         "\t24: Orders list\n" +
                         "\t25: Order by Id\n" +
-                        "9: Exit"
+                "\u001B[31m" + "9: Exit" + "\u001B[0m"
         );
         System.out.println("Please enter transaction number: ");
         int transactionNo = 0;

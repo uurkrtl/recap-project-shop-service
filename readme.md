@@ -47,3 +47,6 @@ For those with prior knowledge or additional interest in challenges.
 ## Bonus: Command-line Interface
 
 -   Use a  `Scanner`  to read from  `System.in`. Build an interactive product management system with all the extras.
+
+Bonus: Command-line Colors
+Style the command-line output with meaningful, helpful colors and formatting.
