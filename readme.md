@@ -43,3 +43,7 @@ For those with prior knowledge or additional interest in challenges.
 
 -   Write meaningful tests for the classes  `ProductRepo`,  `OrderListRepo`, and  `ShopService`.
 -   Use assertj matchers in your tests.
+
+## Bonus: Command-line Interface
+
+-   Use a  `Scanner`  to read from  `System.in`. Build an interactive product management system with all the extras.

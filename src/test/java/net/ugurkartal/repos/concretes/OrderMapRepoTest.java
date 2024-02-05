@@ -36,7 +36,7 @@ class OrderMapRepoTest {
         orderMapRepo.addOrder(order);
 
         //Act
-        orderMapRepo.removeOrder(order);
+        orderMapRepo.removeOrder(order.id());
         List<Order> allOrdersAfterDeletion = orderMapRepo.getAllOrders();
 
         //Assert

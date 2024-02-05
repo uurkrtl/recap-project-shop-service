@@ -19,7 +19,7 @@ public class ShopService {
         Product product = productRepo.getByIdProduct(productId);
         if (product != null){
             orderRepo.addOrder(new Order(newId, product, quantity, quantity * product.price()));
-            System.out.println("Product added: " + product.name());
+            System.out.println("Order created: " + product.name());
         }else {
             System.out.println("Product could not be added: Not available");
         }
@@ -29,7 +29,7 @@ public class ShopService {
         for (Order order : orderRepo.getAllOrders()){
             if (order.id() == orderId){
                 orderRepo.addOrder(new Order(order.id(), order.product(),newQuantity, order.product().price() * newQuantity));
-                orderRepo.removeOrder(order);
+                orderRepo.removeOrder(order.id());
                 System.out.println("Order quantity updated");
                 return;
             }

@@ -27,8 +27,15 @@ public class OrderMapRepo implements OrderRepo {
     }
 
     @Override
-    public void removeOrder(Order order) {
-        orders.remove(order);
+    public void removeOrder(long orderId) {
+        for (Order order : orders){
+            if (order.id() == orderId){
+                orders.remove(order);
+                System.out.println("Transaction successful");
+                return;
+            }
+        }
+        System.out.println("Order not found");
     }
 
     @Override

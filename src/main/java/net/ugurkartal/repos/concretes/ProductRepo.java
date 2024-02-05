@@ -24,12 +24,14 @@ public class ProductRepo {
         long newId = products.isEmpty() ? 1 : products.getLast().id() + 1;
         Product newProduct = new Product(newId, productName, price);
         products.add(newProduct);
+        System.out.println("Product added successfully");
     }
 
     public void removeProduct(long productId){
         for (Product product : products){
             if (product.id() == productId){
                 products.remove(product);
+                System.out.println("Product deleted");
                 return;
             }
         }
