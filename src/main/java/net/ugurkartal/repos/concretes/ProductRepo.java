@@ -20,9 +20,9 @@ public class ProductRepo {
         this.products = new ArrayList<>();
     }
 
-    public void addProduct(String productName){
+    public void addProduct(String productName, double price){
         long newId = products.isEmpty() ? 1 : products.getLast().id() + 1;
-        products.add(new Product(newId, productName));
+        products.add(new Product(newId, productName, price));
     }
 
     public void removeProduct(Product product){

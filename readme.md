@@ -31,3 +31,10 @@ Create a class  `ShopService`  through which we can place new orders.
 -   Create a class  `OrderMapRepo`  through which we can place new orders.
 -   This class should also implement the  `OrderRepo`  interface.
 -   In the main method, create either the  `OrderMapRepo`  or the  `OrderListRepo`  and pass it to the constructor of  `ShopService`  (as a constructor parameter that uses the interface).
+
+## Bonus: Price, Quantity
+
+For those with prior knowledge or additional interest in challenges.
+
+-   Add a price to the product and a total price for an order.
+-   Allow the user to specify and modify the quantity of products in an order.

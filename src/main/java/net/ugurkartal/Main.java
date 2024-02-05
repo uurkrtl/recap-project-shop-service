@@ -11,15 +11,18 @@ public class Main {
         ShopService shopService = new ShopService(orderMapRepo, productRepo);
 
 
-        productRepo.addProduct("Computer");
-        productRepo.addProduct("Keyboard");
-        productRepo.addProduct("Mouse");
+        productRepo.addProduct("Computer", 1000);
+        productRepo.addProduct("Keyboard", 15);
+        productRepo.addProduct("Mouse", 5);
 
-        shopService.newOrder(1);
-        shopService.newOrder(2);
-        shopService.newOrder(4);
+        shopService.newOrder(1, 5);
+        shopService.newOrder(2, 20);
+        shopService.newOrder(4, 10);
 
         System.out.println("All orders: " + orderMapRepo.getAllOrders());
         System.out.println("All products: " + productRepo.getAllProducts());
+
+        shopService.updateOrderQuantity(1, 10);
+        System.out.println("All orders: " + orderMapRepo.getAllOrders());
     }
 }
