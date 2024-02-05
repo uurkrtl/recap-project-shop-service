@@ -38,3 +38,8 @@ For those with prior knowledge or additional interest in challenges.
 
 -   Add a price to the product and a total price for an order.
 -   Allow the user to specify and modify the quantity of products in an order.
+
+## Bonus: Tests
+
+-   Write meaningful tests for the classes  `ProductRepo`,  `OrderListRepo`, and  `ShopService`.
+-   Use assertj matchers in your tests.

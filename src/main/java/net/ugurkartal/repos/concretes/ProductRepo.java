@@ -22,11 +22,18 @@ public class ProductRepo {
 
     public void addProduct(String productName, double price){
         long newId = products.isEmpty() ? 1 : products.getLast().id() + 1;
-        products.add(new Product(newId, productName, price));
+        Product newProduct = new Product(newId, productName, price);
+        products.add(newProduct);
     }
 
-    public void removeProduct(Product product){
-        products.remove(product);
+    public void removeProduct(long productId){
+        for (Product product : products){
+            if (product.id() == productId){
+                products.remove(product);
+                return;
+            }
+        }
+        System.out.println("Product number is wrong");
     }
 
     public List<Product> getAllProducts (){
