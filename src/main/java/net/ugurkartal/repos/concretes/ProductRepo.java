@@ -1,12 +1,14 @@
 package net.ugurkartal.repos.concretes;
 
 import net.ugurkartal.entities.Product;
+import net.ugurkartal.services.LoggerService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProductRepo {
     private List<Product> products;
+    private LoggerService loggerService;
 
     public List<Product> getProducts() {
         return products;
@@ -16,14 +18,16 @@ public class ProductRepo {
         this.products = products;
     }
 
-    public ProductRepo() {
+    public ProductRepo(LoggerService loggerService) {
         this.products = new ArrayList<>();
+        this.loggerService = loggerService;
     }
 
     public void addProduct(String productName, double price, int stockAmount){
         long newId = products.isEmpty() ? 1 : products.getLast().id() + 1;
         Product newProduct = new Product(newId, productName, price, stockAmount);
         products.add(newProduct);
+        loggerService.addLog(newProduct, "Stock increase (Buy new product)", stockAmount);
         System.out.println("Product added successfully");
     }
 
@@ -62,6 +66,7 @@ public class ProductRepo {
                 Product newProduct = new Product(product.id(), product.name(), product.price(), product.stockAmount() + addedAmount);
                 products.add(newProduct);
                 products.remove(product);
+                loggerService.addLog(newProduct, "Stock increase (Add new stock)", addedAmount);
                 System.out.println("New stock added to the product");
                 return;
             }
@@ -76,6 +81,7 @@ public class ProductRepo {
                     Product newProduct = new Product(product.id(), product.name(), product.price(), product.stockAmount() - reducedAmount);
                     products.add(newProduct);
                     products.remove(product);
+                    loggerService.addLog(newProduct, "Stock decrease (Without sale)", reducedAmount);
                     System.out.println("Stock quantity updated");
                 }else {
                     System.out.println("Stock quantity is incorrect. Current stock: " + product.stockAmount());

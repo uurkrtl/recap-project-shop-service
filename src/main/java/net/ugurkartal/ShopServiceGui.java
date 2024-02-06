@@ -2,8 +2,10 @@ package net.ugurkartal;
 
 import net.ugurkartal.entities.Order;
 import net.ugurkartal.entities.Product;
+import net.ugurkartal.entities.StockLog;
 import net.ugurkartal.repos.concretes.OrderMapRepo;
 import net.ugurkartal.repos.concretes.ProductRepo;
+import net.ugurkartal.services.LoggerService;
 import net.ugurkartal.services.ShopService;
 
 import java.io.IOException;
@@ -12,9 +14,10 @@ import java.util.Scanner;
 
 public class ShopServiceGui {
     static Scanner scanner = new Scanner(System.in);
-    static OrderMapRepo orderMapRepo = new OrderMapRepo();
-    static ProductRepo productRepo = new ProductRepo();
-    static ShopService shopService = new ShopService(orderMapRepo, productRepo);
+    static LoggerService loggerService = new LoggerService();
+    static OrderMapRepo orderMapRepo = new OrderMapRepo(loggerService);
+    static ProductRepo productRepo = new ProductRepo(loggerService);
+    static ShopService shopService = new ShopService(orderMapRepo, productRepo, loggerService);
     public static void main(String[] args) throws InterruptedException, IOException {
         showMenu();
     }
@@ -28,6 +31,7 @@ public class ShopServiceGui {
                         "\t14: Unsaled stock issue\n" +
                         "\t15: Products list\n" +
                         "\t16: Product by Id\n" +
+                        "\t17: Inventory Log\n" +
                 "\u001B[0m" + "**Order Management**\n" +
                         "\u001B[32m" + "\t21: New order\n" +
                         "\t22: Update order quantity\n" +
@@ -40,7 +44,7 @@ public class ShopServiceGui {
         int transactionNo = 0;
         try {
             transactionNo = scanner.nextInt();
-            if ((transactionNo !=9 && transactionNo < 11) || (transactionNo > 16 && transactionNo < 21) || transactionNo > 25){
+            if ((transactionNo !=9 && transactionNo < 11) || (transactionNo > 17 && transactionNo < 21) || transactionNo > 25){
                 throw new InputMismatchException();
             }
         }catch (InputMismatchException ex){
@@ -106,6 +110,13 @@ public class ShopServiceGui {
                 System.out.println("ID\tProduct Name\tPrice\tStockAmount");
                 System.out.printf("%d\t%s\t\t%.2f\t%d\n", product.id(), product.name(), product.price(), product.stockAmount());
                 pressAnyKey();
+            case 17:
+                System.out.println("Log ID\tProduct Name\tLog Type\tChange Amount");
+                for (StockLog log : loggerService.getAllInventoryLogs()){
+                    System.out.printf("%d\t%s\t%s\t%d%n", log.logId(), log.product().name(), log.changeType(), log.changeAmount());
+                }
+                pressAnyKey();
+
             case 21:
                 System.out.println("**New Order**");
                 System.out.println("Product ID: ");

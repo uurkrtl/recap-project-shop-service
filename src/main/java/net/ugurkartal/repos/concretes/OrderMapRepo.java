@@ -2,12 +2,14 @@ package net.ugurkartal.repos.concretes;
 
 import net.ugurkartal.entities.Order;
 import net.ugurkartal.repos.abstracts.OrderRepo;
+import net.ugurkartal.services.LoggerService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderMapRepo implements OrderRepo {
     private List<Order> orders;
+    private LoggerService loggerService;
 
     public List<Order> getOrders() {
         return orders;
@@ -17,8 +19,9 @@ public class OrderMapRepo implements OrderRepo {
         this.orders = orders;
     }
 
-    public OrderMapRepo() {
+    public OrderMapRepo(LoggerService loggerService) {
         this.orders = new ArrayList<>();
+        this.loggerService = loggerService;
     }
 
     @Override
@@ -30,6 +33,7 @@ public class OrderMapRepo implements OrderRepo {
     public void removeOrder(long orderId) {
         for (Order order : orders){
             if (order.id() == orderId){
+                loggerService.addLog(order.product(), "Stock increase (Order cancellation)", order.quantity());
                 orders.remove(order);
                 System.out.println("Transaction successful");
                 return;

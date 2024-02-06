@@ -16,9 +16,10 @@ class ShopServiceTest {
     @Test
     void testNewOrder() {
         //Arrange
-        OrderMapRepo orderMapRepo = new OrderMapRepo();
-        ProductRepo productRepo = new ProductRepo();
-        ShopService shopService = new ShopService(orderMapRepo, productRepo);
+        OrderMapRepo orderMapRepo = new OrderMapRepo(new LoggerService());
+        ProductRepo productRepo = new ProductRepo(new LoggerService());
+        LoggerService loggerService = new LoggerService();
+        ShopService shopService = new ShopService(orderMapRepo, productRepo, loggerService);
         productRepo.addProduct("Product", 10, 10);
 
         Product product = new Product(1, "Product", 10, 10);
@@ -35,9 +36,10 @@ class ShopServiceTest {
     @Test
     void testNewOrder_StockControl() {
         //Arrange
-        OrderMapRepo orderMapRepo = new OrderMapRepo();
-        ProductRepo productRepo = new ProductRepo();
-        ShopService shopService = new ShopService(orderMapRepo, productRepo);
+        OrderMapRepo orderMapRepo = new OrderMapRepo(new LoggerService());
+        ProductRepo productRepo = new ProductRepo(new LoggerService());
+        LoggerService loggerService = new LoggerService();
+        ShopService shopService = new ShopService(orderMapRepo, productRepo, loggerService);
         productRepo.addProduct("Product", 10, 10);
 
         Product product = new Product(1, "Product", 10, 10);
@@ -54,9 +56,10 @@ class ShopServiceTest {
     @Test
     void testNewOrder_StockControl_whenNoStock_thenNoOrder() {
         //Arrange
-        OrderMapRepo orderMapRepo = new OrderMapRepo();
-        ProductRepo productRepo = new ProductRepo();
-        ShopService shopService = new ShopService(orderMapRepo, productRepo);
+        OrderMapRepo orderMapRepo = new OrderMapRepo(new LoggerService());
+        ProductRepo productRepo = new ProductRepo(new LoggerService());
+        LoggerService loggerService = new LoggerService();
+        ShopService shopService = new ShopService(orderMapRepo, productRepo, loggerService);
         productRepo.addProduct("Product", 10, 10);
 
         Product product = new Product(1, "Product", 10, 10);
@@ -73,9 +76,10 @@ class ShopServiceTest {
     @Test
     void testUpdateOrderQuantity() {
         //Arrange
-        OrderMapRepo orderMapRepo = new OrderMapRepo();
-        ProductRepo productRepo = new ProductRepo();
-        ShopService shopService = new ShopService(orderMapRepo, productRepo);
+        OrderMapRepo orderMapRepo = new OrderMapRepo(new LoggerService());
+        ProductRepo productRepo = new ProductRepo(new LoggerService());
+        LoggerService loggerService =new LoggerService();
+        ShopService shopService = new ShopService(orderMapRepo, productRepo, loggerService);
         productRepo.addProduct("Product", 10, 10);
         shopService.newOrder(1, 10);
 

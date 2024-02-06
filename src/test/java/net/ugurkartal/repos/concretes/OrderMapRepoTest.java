@@ -2,6 +2,7 @@ package net.ugurkartal.repos.concretes;
 
 import net.ugurkartal.entities.Order;
 import net.ugurkartal.entities.Product;
+import net.ugurkartal.services.LoggerService;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -17,7 +18,7 @@ class OrderMapRepoTest {
         //Arrange
         Product product = new Product(1, "Product1", 10, 10);
         Order order = new Order(1,product,1,10);
-        OrderMapRepo orderMapRepo = new OrderMapRepo();
+        OrderMapRepo orderMapRepo = new OrderMapRepo(new LoggerService());
 
         //Act
         orderMapRepo.addOrder(order);
@@ -32,7 +33,7 @@ class OrderMapRepoTest {
         //Arrange
         Product product = new Product(1, "Product1", 10, 10);
         Order order = new Order(1,product,1,10);
-        OrderMapRepo orderMapRepo = new OrderMapRepo();
+        OrderMapRepo orderMapRepo = new OrderMapRepo(new LoggerService());
         orderMapRepo.addOrder(order);
 
         //Act
@@ -49,7 +50,7 @@ class OrderMapRepoTest {
         Product product2 = new Product(1, "Product2", 20, 10);
         Order order1 = new Order(1,product1,1,10);
         Order order2 = new Order(1,product2,1,20);
-        OrderMapRepo orderMapRepo = new OrderMapRepo();
+        OrderMapRepo orderMapRepo = new OrderMapRepo(new LoggerService());
         orderMapRepo.addOrder(order1);
         orderMapRepo.addOrder(order2);
 
@@ -69,7 +70,7 @@ class OrderMapRepoTest {
         Product product2 = new Product(1, "Product2", 20, 10);
         Order expectedOrder = new Order(1,product1,1,10);
         Order otherOrder = new Order(1,product2,1,20);
-        OrderMapRepo orderMapRepo = new OrderMapRepo();
+        OrderMapRepo orderMapRepo = new OrderMapRepo(new LoggerService());
         orderMapRepo.addOrder(expectedOrder);
         orderMapRepo.addOrder(otherOrder);
 

@@ -58,3 +58,7 @@ Style the command-line output with meaningful, helpful colors and formatting.
 ## Bonus: Goods In and Out
 
 -   Enable additional workflows for goods in and out. When goods are received, increase the inventory. When goods are dispatched (e.g., due to water damage or theft), decrease the inventory.
+
+## Bonus: Inventory Log
+
+-   Keep a log of all inventory changes, with links to the orders (or goods in and out) that caused these changes.
