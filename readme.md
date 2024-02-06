@@ -50,3 +50,11 @@ For those with prior knowledge or additional interest in challenges.
 
 Bonus: Command-line Colors
 Style the command-line output with meaningful, helpful colors and formatting.
+
+## Bonus: Inventory Information
+
+-   Store the quantity of each product in stock. When a product is ordered, decrease the inventory. If a product is out of stock, it cannot be ordered.
+
+## Bonus: Goods In and Out
+
+-   Enable additional workflows for goods in and out. When goods are received, increase the inventory. When goods are dispatched (e.g., due to water damage or theft), decrease the inventory.

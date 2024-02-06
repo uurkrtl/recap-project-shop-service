@@ -17,31 +17,6 @@ public class ShopServiceGui {
     static ShopService shopService = new ShopService(orderMapRepo, productRepo);
     public static void main(String[] args) throws InterruptedException, IOException {
         showMenu();
-
-        /*
-        OrderMapRepo orderMapRepo = new OrderMapRepo();
-        ProductRepo productRepo = new ProductRepo();
-        ShopService shopService = new ShopService(orderMapRepo, productRepo);
-
-
-        productRepo.addProduct("Computer", 1000);
-        productRepo.addProduct("Keyboard", 15);
-        productRepo.addProduct("Mouse", 5);
-
-        shopService.newOrder(1, 5);
-        shopService.newOrder(2, 20);
-        shopService.newOrder(4, 10);
-
-        System.out.println("All orders: " + orderMapRepo.getAllOrders());
-        System.out.println("All products: " + productRepo.getAllProducts());
-
-        shopService.updateOrderQuantity(1, 10);
-        System.out.println("All orders: " + orderMapRepo.getAllOrders());
-
-        orderMapRepo.removeOrder(2);
-        System.out.println(orderMapRepo.getAllOrders());
-
-         */
     }
 
     public static void showMenu() throws InterruptedException, IOException {
@@ -49,8 +24,10 @@ public class ShopServiceGui {
                 "\n**Product Management**\n" +
                         "\u001B[32m" + "\t11: New product\n" +
                         "\t12: Remove product\n" +
-                        "\t13: Products list\n" +
-                        "\t14: Product by Id\n" +
+                        "\t13: Adding stock to the product\n" +
+                        "\t14: Unsaled stock issue\n" +
+                        "\t15: Products list\n" +
+                        "\t16: Product by Id\n" +
                 "\u001B[0m" + "**Order Management**\n" +
                         "\u001B[32m" + "\t21: New order\n" +
                         "\t22: Update order quantity\n" +
@@ -63,7 +40,7 @@ public class ShopServiceGui {
         int transactionNo = 0;
         try {
             transactionNo = scanner.nextInt();
-            if ((transactionNo !=9 && transactionNo < 11) || (transactionNo > 14 && transactionNo < 21) || transactionNo > 25){
+            if ((transactionNo !=9 && transactionNo < 11) || (transactionNo > 16 && transactionNo < 21) || transactionNo > 25){
                 throw new InputMismatchException();
             }
         }catch (InputMismatchException ex){
@@ -86,7 +63,9 @@ public class ShopServiceGui {
                 String productName = scanner.next();
                 System.out.println("Product price: ");
                 int productPrice = scanner.nextInt();
-                productRepo.addProduct(productName, productPrice);
+                System.out.println("The amount of stock: ");
+                int stockAmount = scanner.nextInt();
+                productRepo.addProduct(productName, productPrice, stockAmount);
                 pressAnyKey();
             case 12:
                 System.out.println("**Remove Product**");
@@ -95,19 +74,37 @@ public class ShopServiceGui {
                 productRepo.removeProduct(deleteId);
                 pressAnyKey();
             case 13:
-                System.out.println("**Products List**");
-                System.out.println("ID\tProduct Name\tPrice");
-                for (Product product : productRepo.getAllProducts()){
-                    System.out.printf("%d\t%s\t\t%.2f\n", product.id(), product.name(), product.price());
-                }
+                System.out.println("**Adding Stock To The Product**");
+                System.out.println("Product ID: ");
+                int entryProductId = scanner.nextInt();
+                Product entryProduct = productRepo.getByIdProduct(entryProductId);
+                System.out.println("Amount of stock to be added: ");
+                int addedStockAmount = scanner.nextInt();
+                productRepo.productEntry(entryProductId, addedStockAmount);
                 pressAnyKey();
             case 14:
+                System.out.println("**Unsaled Stock Issue**");
+                System.out.println("Product ID: ");
+                int unsaledProductId = scanner.nextInt();
+                Product unsaledProduct = productRepo.getByIdProduct(unsaledProductId);
+                System.out.println("Amount of stock to be reduced: ");
+                int unsaledStockAmount = scanner.nextInt();
+                productRepo.unsaledStockIssue(unsaledProductId, unsaledStockAmount);
+                pressAnyKey();
+            case 15:
+                System.out.println("**Products List**");
+                System.out.println("ID\tProduct Name\tPrice\tStockAmount");
+                for (Product product : productRepo.getAllProducts()){
+                    System.out.printf("%d\t%s\t\t%.2f\t%d\n", product.id(), product.name(), product.price(), product.stockAmount());
+                }
+                pressAnyKey();
+            case 16:
                 System.out.println("**Product Details**");
                 System.out.println("Product ID: ");
                 int searchProductId = scanner.nextInt();
                 Product product = productRepo.getByIdProduct(searchProductId);
-                System.out.println("ID\tProduct Name\tPrice");
-                System.out.printf("%d\t%s\t\t%.2f\n", product.id(), product.name(), product.price());
+                System.out.println("ID\tProduct Name\tPrice\tStockAmount");
+                System.out.printf("%d\t%s\t\t%.2f\t%d\n", product.id(), product.name(), product.price(), product.stockAmount());
                 pressAnyKey();
             case 21:
                 System.out.println("**New Order**");

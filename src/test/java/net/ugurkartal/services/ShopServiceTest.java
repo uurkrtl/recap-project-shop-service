@@ -14,14 +14,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class ShopServiceTest {
 
     @Test
-    void newOrder() {
+    void testNewOrder() {
         //Arrange
         OrderMapRepo orderMapRepo = new OrderMapRepo();
         ProductRepo productRepo = new ProductRepo();
         ShopService shopService = new ShopService(orderMapRepo, productRepo);
-        productRepo.addProduct("Product", 10);
+        productRepo.addProduct("Product", 10, 10);
 
-        Product product = new Product(1, "Product", 10);
+        Product product = new Product(1, "Product", 10, 10);
         Order expectedOrder = new Order(1, product, 1, 10);
 
         //Act
@@ -33,15 +33,53 @@ class ShopServiceTest {
     }
 
     @Test
-    void updateOrderQuantity() {
+    void testNewOrder_StockControl() {
         //Arrange
         OrderMapRepo orderMapRepo = new OrderMapRepo();
         ProductRepo productRepo = new ProductRepo();
         ShopService shopService = new ShopService(orderMapRepo, productRepo);
-        productRepo.addProduct("Product", 10);
+        productRepo.addProduct("Product", 10, 10);
+
+        Product product = new Product(1, "Product", 10, 10);
+        Product expectedProduct = new Product(1, "Product", 10, 9);
+
+        //Act
+        shopService.newOrder(1, 1);
+        List<Product> allProductsAfterOrder = productRepo.getAllProducts();
+
+        //Assert
+        assertThat(allProductsAfterOrder).isNotNull().hasSize(1).containsExactly(expectedProduct);
+    }
+
+    @Test
+    void testNewOrder_StockControl_whenNoStock_thenNoOrder() {
+        //Arrange
+        OrderMapRepo orderMapRepo = new OrderMapRepo();
+        ProductRepo productRepo = new ProductRepo();
+        ShopService shopService = new ShopService(orderMapRepo, productRepo);
+        productRepo.addProduct("Product", 10, 10);
+
+        Product product = new Product(1, "Product", 10, 10);
+        Product expectedProduct = new Product(1, "Product", 10, 10);
+
+        //Act
+        shopService.newOrder(1, 11);
+        List<Product> allProductsAfterOrder = productRepo.getAllProducts();
+
+        //Assert
+        assertThat(allProductsAfterOrder).isNotNull().hasSize(1).containsExactly(expectedProduct);
+    }
+
+    @Test
+    void testUpdateOrderQuantity() {
+        //Arrange
+        OrderMapRepo orderMapRepo = new OrderMapRepo();
+        ProductRepo productRepo = new ProductRepo();
+        ShopService shopService = new ShopService(orderMapRepo, productRepo);
+        productRepo.addProduct("Product", 10, 10);
         shopService.newOrder(1, 10);
 
-        Product product = new Product(1, "Product", 10);
+        Product product = new Product(1, "Product", 10, 10);
         Order expectedOrder = new Order(1, product, 5, 50);
 
         //Act

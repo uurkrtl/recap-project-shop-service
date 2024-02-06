@@ -15,7 +15,7 @@ class OrderMapRepoTest {
     @Test
     void testAddOrder() {
         //Arrange
-        Product product = new Product(1, "Product1", 10);
+        Product product = new Product(1, "Product1", 10, 10);
         Order order = new Order(1,product,1,10);
         OrderMapRepo orderMapRepo = new OrderMapRepo();
 
@@ -30,7 +30,7 @@ class OrderMapRepoTest {
     @Test
     void testRemoveOrder() {
         //Arrange
-        Product product = new Product(1, "Product1", 10);
+        Product product = new Product(1, "Product1", 10, 10);
         Order order = new Order(1,product,1,10);
         OrderMapRepo orderMapRepo = new OrderMapRepo();
         orderMapRepo.addOrder(order);
@@ -45,8 +45,8 @@ class OrderMapRepoTest {
 
     @Test
     void testGetAllOrders() {
-        Product product1 = new Product(1, "Product1", 10);
-        Product product2 = new Product(1, "Product2", 20);
+        Product product1 = new Product(1, "Product1", 10, 10);
+        Product product2 = new Product(1, "Product2", 20, 10);
         Order order1 = new Order(1,product1,1,10);
         Order order2 = new Order(1,product2,1,20);
         OrderMapRepo orderMapRepo = new OrderMapRepo();
@@ -65,8 +65,8 @@ class OrderMapRepoTest {
     @Test
     void getByIdOrder() {
         //Arrange
-        Product product1 = new Product(1, "Product1", 10);
-        Product product2 = new Product(1, "Product2", 20);
+        Product product1 = new Product(1, "Product1", 10, 10);
+        Product product2 = new Product(1, "Product2", 20, 10);
         Order expectedOrder = new Order(1,product1,1,10);
         Order otherOrder = new Order(1,product2,1,20);
         OrderMapRepo orderMapRepo = new OrderMapRepo();

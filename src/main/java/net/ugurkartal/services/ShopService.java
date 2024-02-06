@@ -18,8 +18,15 @@ public class ShopService {
         long newId = orderRepo.getAllOrders().isEmpty() ? 1 : orderRepo.getAllOrders().getLast().id() + 1;
         Product product = productRepo.getByIdProduct(productId);
         if (product != null){
-            orderRepo.addOrder(new Order(newId, product, quantity, quantity * product.price()));
-            System.out.println("Order created: " + product.name());
+            if (product.stockAmount() - quantity < 0){
+                System.out.println("Not enough stock. Current stock: " + product.stockAmount());
+            }else {
+                orderRepo.addOrder(new Order(newId, product, quantity, quantity * product.price()));
+                productRepo.addProductWithId(product.id(), product.name(), product.price(), product.stockAmount() - quantity);
+                productRepo.removeProduct(productId);
+                System.out.println("Order created: " + product.name());
+            }
+
         }else {
             System.out.println("Product could not be added: Not available");
         }

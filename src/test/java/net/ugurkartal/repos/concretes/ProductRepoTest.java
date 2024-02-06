@@ -14,13 +14,13 @@ class ProductRepoTest {
     @Test
     void testGetAllProducts() {
         //Arrange
-        Product product1 = new Product(1,"Product1", 5);
-        Product product2 = new Product(2, "Product2", 10);
+        Product product1 = new Product(1,"Product1", 5, 10);
+        Product product2 = new Product(2, "Product2", 10, 10);
         List<Product> expectedProducts = Arrays.asList(product1, product2);
 
         ProductRepo productRepo = new ProductRepo();
-        productRepo.addProduct("Product1", 5);
-        productRepo.addProduct("Product2", 10);
+        productRepo.addProduct("Product1", 5, 10);
+        productRepo.addProduct("Product2", 10,10);
 
         //Act
         List<Product> actualProducts = productRepo.getAllProducts();
@@ -32,23 +32,22 @@ class ProductRepoTest {
     @Test
     void testAddProduct() {
         //Arrange
-        Product product1 = new Product(1,"Product", 5);
+        Product product1 = new Product(1,"Product", 5, 10);
         ProductRepo productRepo = new ProductRepo();
 
         //Act
-        productRepo.addProduct("Product", 5);
+        productRepo.addProduct("Product", 5, 10);
         List<Product> allProductsAfterAddition = productRepo.getAllProducts();
 
         //Assert
         assertThat(allProductsAfterAddition).isNotNull().hasSize(1).containsExactly(product1);
-
     }
 
     @Test
     void testRemoveProduct() {
         //Arrange
         ProductRepo productRepo = new ProductRepo();
-        productRepo.addProduct("Product", 5);
+        productRepo.addProduct("Product", 5, 10);
 
         //Act
         productRepo.removeProduct(1);
@@ -61,15 +60,45 @@ class ProductRepoTest {
     @Test
     void getByIdProduct() {
         //Arrange
-        Product expectedProduct = new Product(1,"Product1", 5);
+        Product expectedProduct = new Product(1,"Product1", 5, 10);
         ProductRepo productRepo = new ProductRepo();
-        productRepo.addProduct("Product1", 5);
-        productRepo.addProduct("Other product", 10);
+        productRepo.addProduct("Product1", 5, 10);
+        productRepo.addProduct("Other product", 10, 10);
 
         //Act
         Product actualProduct = productRepo.getByIdProduct(1);
 
         //Assert
         assertThat(actualProduct).isNotNull().isEqualTo(expectedProduct);
+    }
+
+    @Test
+    void testProductEntry() {
+        //Arrange
+        Product expectedProduct = new Product(1,"Product", 5, 18);
+        ProductRepo productRepo = new ProductRepo();
+
+        //Act
+        productRepo.addProduct("Product", 5, 10);
+        productRepo.productEntry(1, 8);
+        List<Product> allProductsAfterAddition = productRepo.getAllProducts();
+
+        //Assert
+        assertThat(allProductsAfterAddition).isNotNull().hasSize(1).containsExactly(expectedProduct);
+    }
+
+    @Test
+    void testUnsaledStockIssue() {
+        //Arrange
+        Product expectedProduct = new Product(1,"Product", 5, 4);
+        ProductRepo productRepo = new ProductRepo();
+
+        //Act
+        productRepo.addProduct("Product", 5, 10);
+        productRepo.unsaledStockIssue(1, 6);
+        List<Product> allProductsAfterAddition = productRepo.getAllProducts();
+
+        //Assert
+        assertThat(allProductsAfterAddition).isNotNull().hasSize(1).containsExactly(expectedProduct);
     }
 }
